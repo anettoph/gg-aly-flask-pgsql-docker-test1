@@ -4,8 +4,8 @@
 Account of {{account.nickname}}
 {% endblock %}
 
-{% block content %}
-<table class="table">
+{% block body %}
+<table class="table container">
     <tr>
         <th>Nickname</th>
         <td>{{account.nickname}}</td>
@@ -23,7 +23,7 @@ Account of {{account.nickname}}
         <td>{{account.accounttype}}</td>
     </tr>
 </table>
-<form action="" method="post"  novalidate>
+<form action="" method="post"  class="container">
     <input type="submit" name="submit_button" value="Promote to admin">
     <input type="submit" name="submit_button" value="Promote to moder">
     <input type="submit" name="submit_button" value="Go back to accounts">

@@ -3,16 +3,19 @@ version: '3'
 services:
   web:
     restart: always
-    build: ./uwsgi-nginx-flask
+    image: anettoph/my-uwsgi-nginx-flask:v1
     container_name: gg-aly-test1-web
-    expose:
-      - "80"
+    ports:
+      - "80:80"
+      - "443:443"
     links:
       - postgres:postgres
     depends_on:
       - postgres
     volumes:
       - ./www/gg-py-test1:/app
+    environment:
+      STATIC_URL: /app/static
 
   postgres:
     restart: always
@@ -20,11 +23,5 @@ services:
     container_name: gg-aly-test1-postgres
     volumes:
       - ./data/db:/var/lib/postgresql/data
-    # ports:
-    #   - "5432:5432"
     environment:
       POSTGRES_PASSWORD: postgres
-
-# volumes:
-#   db-data:
-#   web-data:

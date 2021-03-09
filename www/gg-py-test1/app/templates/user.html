@@ -1,6 +1,18 @@
 {% extends "base.html" %}
 
-{% block content %}
-    <h1>User: {{ user.username }}</h1>
-    <hr>
+{% block body %}
+    <table class="table container">
+        <tr>
+            <th>Username</th>
+            <td>{{user.username}}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{user.email}}</td>
+        </tr>
+        <tr>
+            <th>Created_on</th>
+            <td>{{user.created_on}}</td>
+        </tr>
+    </table>
 {% endblock %}
