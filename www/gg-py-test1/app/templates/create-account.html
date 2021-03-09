@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Create new account
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Fill in the fields</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.nickname.label }}<br>
+            {{ form.nickname(size=32) }}<br>
+            {% for error in form.nickname.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.rank.label }}<br>
+            {{ form.rank(size=32, value=0) }}<br>
+            {% for error in form.rank.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.clanname.label }}<br>
+            {{ form.clanname(size=32) }}<br>
+            {% for error in form.clanname.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.accounttype.label }}<br>
+            {{ form.accounttype(size=3) }}<br>
+            {% for error in form.accounttype.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+</div>
+{% endblock %}
+{% block content %}
+
+{% endblock %}

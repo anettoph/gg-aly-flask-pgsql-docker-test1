@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Account of {{account.nickname}}
+{% endblock %}
+
+{% block content %}
+<table class="table">
+    <tr>
+        <th>Nickname</th>
+        <td>{{account.nickname}}</td>
+    </tr>
+    <tr>
+        <th>Rank</th>
+        <td>{{account.rank}}</td>
+    </tr>
+    <tr>
+        <th>Clanname</th>
+        <td>{{account.clanname}}</td>
+    </tr>
+    <tr>
+        <th>Accounttype</th>
+        <td>{{account.accounttype}}</td>
+    </tr>
+</table>
+<form action="" method="post"  novalidate>
+    <input type="submit" name="submit_button" value="Promote to admin">
+    <input type="submit" name="submit_button" value="Promote to moder">
+    <input type="submit" name="submit_button" value="Go back to accounts">
+</form>
+{% endblock %}

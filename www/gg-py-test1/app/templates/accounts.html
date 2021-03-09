@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Accounts
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <form style="display: inline;" action="{{ url_for('accounts') }}" method="post" name="search">
+        {{ form.search(size=40, value=search_value) }}
+        <input type="submit" value="Search">
+    </form>
+    <table class="table table-hover">
+        <tr>
+            <th>Nickname</th>
+            <th>Rank</th>
+            <th>Clanname</th>
+            <th>Accounttype</th>
+        </tr>
+        {% for row in accounts %}
+        <tr class='clickable-row' data-href="{{ url_for('account', nickname=row.nickname, search_value=search_value) }}">
+            <td><a href="{{ url_for('account', nickname=row.nickname, search_value=search_value) }}">{{row.nickname}}</a></td>
+            <td>{{row.rank}}</td>
+            <td>{{row.clanname}}</td>
+            <td>{{row.accounttype}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% if pagpages['has_prev'] %}
+    <a href="{{ url_for('accounts', page = pagpages['prev_num'], search_value=search_value) }}"><< Previous page</a>
+    {% else %}
+    << Previous page
+    {% endif %}
+    |
+    {% if pagpages['has_next'] %}
+    <a href="{{ url_for('accounts', page = pagpages['next_num'], search_value=search_value) }}">Next page >></a>
+    {% else %}
+    Next page >>
+    {% endif %}
+</div>
+{% endblock %}
+
