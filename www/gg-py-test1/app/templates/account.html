@@ -20,7 +20,7 @@ Account of {{account.nickname}}
     </tr>
     <tr>
         <th>Accounttype</th>
-        <td>{{account.accounttype}}</td>
+        <td>{{{1:'User',2:'Moderator',3:'Administrator'}[account.accounttype]}}</td>
     </tr>
 </table>
 <form action="" method="post"  class="container">

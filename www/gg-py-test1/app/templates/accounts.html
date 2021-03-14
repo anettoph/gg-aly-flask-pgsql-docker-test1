@@ -22,7 +22,7 @@ Accounts
             <td><a href="{{ url_for('account', nickname=row.nickname, search_value=search_value) }}">{{row.nickname}}</a></td>
             <td>{{row.rank}}</td>
             <td>{{row.clanname}}</td>
-            <td>{{row.accounttype}}</td>
+            <td>{{{1:'User',2:'Moderator',3:'Administrator'}[row.accounttype]}}</td>
         </tr>
         {% endfor %}
     </table>
