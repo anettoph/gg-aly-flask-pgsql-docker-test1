@@ -66,18 +66,20 @@ def accounts(page=1):
     global account_prev_page
     account_prev_page = page
     form = SearchForm()
-    if request.args.get('search_value', None) != None:
+    if request.args.get('search_value', None):
         query = request.args.get('search_value')
     else:
         query = form.data['search']
-    if query != None:
-        p = Account.query.filter(or_(Account.nickname.ilike('%'+query+'%'), Account.clanname.ilike('%'+query+'%'))).paginate(page, Config.PAGE_ROWS_COUNT, False)
+    if query:
+        p = Account.query.order_by(Account.id).filter(or_(Account.nickname.ilike('%'+query+'%'),
+                                                          Account.clanname.ilike('%'+query+'%')))\
+            .paginate(page, Config.PAGE_ROWS_COUNT, False)
         accounts = p.items
         pagpages = {'has_prev': p.has_prev, 'has_next': p.has_next, 'prev_num': p.prev_num, 'next_num': p.next_num}
         return render_template('accounts.html', form=form, query=query, accounts=accounts, pagpages=pagpages, search_value=query)
-    p = Account.query.paginate(page, Config.PAGE_ROWS_COUNT, False)
+    p = Account.query.order_by(Account.id).paginate(page, Config.PAGE_ROWS_COUNT, False)
     accounts = p.items
-    pagpages = {'has_prev': p.has_prev, 'has_next': p.has_next, 'prev_num':p.prev_num, 'next_num':p.next_num}
+    pagpages = {'has_prev': p.has_prev, 'has_next': p.has_next, 'prev_num': p.prev_num, 'next_num': p.next_num}
     return render_template('accounts.html', form=form, query=query, accounts=accounts, pagpages=pagpages)
 
 
@@ -89,11 +91,11 @@ def account(nickname):
     account = Account.query.filter_by(nickname=nickname).first_or_404()
     if request.method == 'POST':
         if request.form['submit_button'] == 'Promote to admin':
-            account.accounttype=3
+            account.accounttype = 3
             db.session.commit()
             return render_template('account.html', account=account)
         elif request.form['submit_button'] == 'Promote to moder':
-            account.accounttype=2
+            account.accounttype = 2
             db.session.commit()
             return render_template('account.html', account=account)
         elif request.form['submit_button'] == 'Go back to accounts':
@@ -102,8 +104,6 @@ def account(nickname):
             pass
     elif request.method == 'GET':
         return render_template('account.html', account=account)
-
-
 
 
 @app.route('/create-account', methods=['GET', 'POST'])
@@ -119,6 +119,7 @@ def create_account():
         )
         db.session.add(account)
         db.session.commit()
-        flash('{} account created, rank = {}, clan = {}, account type = {}'.format(form.nickname.data, form.rank.data, form.clanname.data, form.accounttype.data))
+        flash('{} account created, rank = {}, clan = {}, account type = {}'
+              .format(form.nickname.data, form.rank.data, form.clanname.data, form.accounttype.data))
         return redirect('/create-account')
     return render_template('create-account.html', title='Create Account', form=form)

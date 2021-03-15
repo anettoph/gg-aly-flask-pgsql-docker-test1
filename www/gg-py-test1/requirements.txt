@@ -1,7 +1,10 @@
+flask
 wheel
+sqlalchemy
 Flask-SQLAlchemy
 Flask-Migrate
 psycopg2-binary
 flask-wtf
 flask-login
 email-validator
+werkzeug

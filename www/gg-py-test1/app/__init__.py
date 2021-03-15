@@ -23,14 +23,18 @@ from app.models import User, Account
 
 db.create_all()
 
-#First run db filling
 
-if User.query.filter_by(username='admin').first()==None:
-    user = User(username='admin', email='email@mail.no')
-    user.set_password('admin')
-    db.session.add(user)
-    db.session.commit()
-    for i in range(20):
-        account = Account(nickname='Account'+str(i), rank=i, clanname='ClanTest', accounttype=1)
-        db.session.add(account)
+def filling_db():
+    # First run db filling
+    if not User.query.filter_by(username='admin').first():
+        user = User(username='admin', email='email@mail.no')
+        user.set_password('admin')
+        db.session.add(user)
         db.session.commit()
+        for i in range(11):
+            account = Account(nickname='Account'+str(i), rank=i, clanname='ClanTest', accounttype=1)
+            db.session.add(account)
+            db.session.commit()
+
+
+filling_db()
